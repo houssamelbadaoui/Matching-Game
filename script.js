@@ -64,6 +64,12 @@ grid.addEventListener("click", (event) => {
   } else {
     secondCard = card;
 
+    // check if first card and second are same
+    if (firstCard.textContent === secondCard.textContent) {
+      // keep them flipped
+      firstCard = null;
+      secondCard = null;
+    }
     // after 3s remove the flipped class
     setTimeout(() => {
       firstCard.classList.remove("flipped");
@@ -72,7 +78,7 @@ grid.addEventListener("click", (event) => {
       // reset cards
       firstCard = null;
       secondCard = null;
-    }, 2000);
+    }, 1000);
   }
 });
 
