@@ -1,6 +1,15 @@
 .bg-green {
   background-color: #3a5a40;
 }
+.card {
+  transition:
+    background 0.3s,
+    transform 0.3s;
+}
+.flipped {
+  background-color: white;
+  transform: rotateY(180deg);
+}
 
 #grid {
   max-width: 700px;
