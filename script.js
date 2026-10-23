@@ -66,6 +66,10 @@ grid.addEventListener("click", (event) => {
 
     // check if first card and second are same
     if (firstCard.textContent === secondCard.textContent) {
+      // add a class
+      firstCard.classList.add("froze");
+      secondCard.classList.add("froze");
+
       // keep them flipped
       firstCard = null;
       secondCard = null;

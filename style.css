@@ -25,7 +25,12 @@ body {
   color: black;
   background-color: white;
 }
-
+.card.froze {
+  background-color: #a3b18a !important;
+  border: 2px solid #588157;
+  cursor: default;
+  opacity: 0.2;
+}
 #grid {
   max-width: 700px;
 }
