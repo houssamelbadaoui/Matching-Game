@@ -18,7 +18,17 @@
       </div>
     </header>
     <main>
-      <div class="container-fluid vh-100 p-2">
+      <div class="container-fluid vh-100 p-2 game-container">
+        <div class="container d-flex justify-content-center gap-3 mb-3">
+          <div class="stat-box">
+            <span class="stat-label">score</span>
+            <span id="score" class="stat-value">0</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Moves</span>
+            <span id="moves" class="stat-value">0</span>
+          </div>
+        </div>
         <div
           id="grid"
           class="row row-cols-3 row-cols-md-4 row-cols-lg-5 g-1 mx-auto"
