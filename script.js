@@ -1,5 +1,8 @@
 const grid = document.getElementById("grid");
 
+const startOverlay = document.getElementById("startOverlay");
+const startButton = document.getElementById("startButton");
+
 // variables score and moves
 let score = document.getElementById("score");
 let moves = document.getElementById("moves");
@@ -31,6 +34,13 @@ const letters = [
 let firstCard = null;
 let secondCard = null;
 
+document.body.style.overflow = "hidden";
+startButton.addEventListener("click", () => {
+  startOverlay.style.display = "none";
+  document.body.style.overflow = "";
+
+  startTimer();
+});
 // function that insert cards inbside grid container
 function insertCards() {
   let cardsHTML = "";
@@ -67,7 +77,6 @@ grid.addEventListener("click", (event) => {
   // prevent clicking same card
   if (card === firstCard) return;
 
-  startTimer();
   card.classList.add("flipped"); // add class to the card
   // if first card not selected yet
   if (firstCard === null) {

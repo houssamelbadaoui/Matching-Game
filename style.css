@@ -71,3 +71,30 @@ body {
   font-size: 1.4rem;
   font-weight: 700;
 }
+.start-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 1000;
+}
+.start-button {
+  padding: 50px 50px;
+  font-size: 1.5rem;
+  font-weight: bold;
+
+  background-color: #3a5a40;
+  color: white;
+  border: 2px solid white;
+  border-radius: 12px;
+
+  cursor: pointer;
+}
+
+.start-button:hover {
+  background-color: #588157;
+}
