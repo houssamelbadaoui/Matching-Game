@@ -1,4 +1,8 @@
 const grid = document.getElementById("grid");
+
+// variables score and moves
+let score = document.getElementById("score");
+let moves = document.getElementById("moves");
 // array of letters
 const letters = [
   "A",
@@ -63,6 +67,7 @@ grid.addEventListener("click", (event) => {
     firstCard = card;
   } else {
     secondCard = card;
+    moves.textContent++; // increase moves
 
     // check if first card and second are same
     if (firstCard.textContent === secondCard.textContent) {
@@ -73,6 +78,7 @@ grid.addEventListener("click", (event) => {
       // keep them flipped
       firstCard = null;
       secondCard = null;
+      score.textContent++; // increase score
     }
     // after 3s remove the flipped class
     setTimeout(() => {
