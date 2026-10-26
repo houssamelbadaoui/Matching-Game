@@ -3,6 +3,11 @@ const grid = document.getElementById("grid");
 // variables score and moves
 let score = document.getElementById("score");
 let moves = document.getElementById("moves");
+
+// select timer
+const timerDisplay = document.getElementById("timer");
+let secondsElapsed = 0;
+let timerInterval = null;
 // array of letters
 const letters = [
   "A",
@@ -58,9 +63,11 @@ grid.addEventListener("click", (event) => {
 
   // check if second card already clicked to not click more
   if (secondCard) return;
-
+  if (card.classList.contains("froze")) return;
   // prevent clicking same card
   if (card === firstCard) return;
+
+  startTimer();
   card.classList.add("flipped"); // add class to the card
   // if first card not selected yet
   if (firstCard === null) {
@@ -115,6 +122,20 @@ function shuffleArray(array) {
     duplicated[i] = temp;
   }
   return duplicated;
+}
+
+function updateTimer() {
+  secondsElapsed++;
+
+  const minutes = Math.floor(secondsElapsed / 60);
+  const seconds = secondsElapsed % 60;
+
+  timerDisplay.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+function startTimer() {
+  if (timerInterval !== null) return;
+
+  timerInterval = setInterval(updateTimer, 1000);
 }
 
 insertCards();

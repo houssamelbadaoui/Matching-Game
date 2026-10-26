@@ -57,3 +57,17 @@ body {
   font-weight: 700;
   margin-left: auto;
 }
+
+.stat-timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  min-width: 130px;
+  color: #3a5a40;
+}
+
+.timer {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
