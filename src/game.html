@@ -28,6 +28,10 @@
             <span class="stat-label">Moves</span>
             <span id="moves" class="stat-value">0</span>
           </div>
+          <div class="stat-box">
+            <span class="stat-label">Player</span>
+            <span id="playerName" class="stat-value"></span>
+          </div>
           <div class="stat-timer">
             <span id="timer" class="timer">00:00</span>
           </div>
@@ -38,7 +42,31 @@
         ></div>
 
         <div class="start-overlay" id="startOverlay">
-          <button class="start-button" id="startButton">Start Game</button>
+          <div class="start-panel">
+            <input
+              type="text"
+              id="usernameInput"
+              class="form-control form-control-lg mb-3"
+              placeholder="Enter your username"
+              maxlength="20"
+              autocomplete="off"
+            />
+            <p id="usernameError" class="text-danger fw-bold d-none">
+              Please enter a username first.
+            </p>
+            <button class="start-button" id="startButton">Start Game</button>
+          </div>
+        </div>
+
+        <div class="start-overlay d-none" id="endOverlay">
+          <div class="start-panel end-panel">
+            <h2 id="endTitle"></h2>
+            <p>Score: <strong id="endScore"></strong></p>
+            <p>Moves: <strong id="endMoves"></strong></p>
+            <p>Time: <strong id="endTime"></strong></p>
+            <p>Total: <strong id="endTotal">...</strong></p>
+            <a href="index.html" class="start-button play-link">View ranking</a>
+          </div>
         </div>
       </div>
     </main>

@@ -152,3 +152,15 @@ body {
   padding: 20px 60px;
   text-decoration: none;
 }
+
+.start-panel {
+  text-align: center;
+  min-width: 300px;
+}
+
+.end-panel {
+  background-color: #3a5a40;
+  color: #fff;
+  padding: 32px;
+  border-radius: 12px;
+}

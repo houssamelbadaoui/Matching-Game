@@ -3,6 +3,14 @@ const grid = document.getElementById("grid");
 const startOverlay = document.getElementById("startOverlay");
 const startButton = document.getElementById("startButton");
 
+const usernameInput = document.getElementById("usernameInput");
+const usernameError = document.getElementById("usernameError");
+const playerName = document.getElementById("playerName");
+const endOverlay = document.getElementById("endOverlay");
+
+let username = "";
+let gameFinished = false;
+
 // variables score and moves
 let score = document.getElementById("score");
 let moves = document.getElementById("moves");
@@ -35,7 +43,18 @@ let firstCard = null;
 let secondCard = null;
 
 document.body.style.overflow = "hidden";
+
+// Start button
 startButton.addEventListener("click", () => {
+  username = usernameInput.value.trim();
+
+  if (username === "") {
+    usernameError.classList.remove("d-none");
+    usernameInput.focus();
+    return;
+  }
+
+  if (playerName) playerName.textContent = username;
   startOverlay.style.display = "none";
   document.body.style.overflow = "";
 
@@ -95,18 +114,22 @@ grid.addEventListener("click", (event) => {
       firstCard = null;
       secondCard = null;
       score.textContent++; // increase score
-    }else{
-      // after 3s remove the flipped class
-    setTimeout(() => {
-      firstCard.classList.remove("flipped");
-      secondCard.classList.remove("flipped");
 
-      // reset cards
-      firstCard = null;
-      secondCard = null;
-    }, 1000);
+      // all pairs found
+      if (Number(score.textContent) === letters.length) {
+        setTimeout(finishGame, 500);
+      }
+    } else {
+      // after 3s remove the flipped class
+      setTimeout(() => {
+        firstCard.classList.remove("flipped");
+        secondCard.classList.remove("flipped");
+
+        // reset cards
+        firstCard = null;
+        secondCard = null;
+      }, 1000);
     }
-    
   }
 });
 
@@ -147,6 +170,44 @@ function startTimer() {
   if (timerInterval !== null) return;
 
   timerInterval = setInterval(updateTimer, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+async function finishGame() {
+  if (gameFinished) return;
+  gameFinished = true;
+  stopTimer();
+
+  const finalScore = Number(score.textContent);
+  const finalMoves = Number(moves.textContent);
+  const finalTime = secondsElapsed;
+
+  document.getElementById("endTitle").textContent = `Well done, ${username}!`;
+  document.getElementById("endScore").textContent = finalScore;
+  document.getElementById("endMoves").textContent = finalMoves;
+  document.getElementById("endTime").textContent = timerDisplay.textContent;
+  endOverlay.classList.remove("d-none");
+
+  try {
+    const response = await fetch("api/scores.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        score: finalScore,
+        moves: finalMoves,
+        time: finalTime,
+      }),
+    });
+    const data = await response.json();
+    document.getElementById("endTotal").textContent = data.total;
+  } catch (error) {
+    document.getElementById("endTotal").textContent = "could not save";
+  }
 }
 
 insertCards();
