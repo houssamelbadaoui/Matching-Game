@@ -95,8 +95,8 @@ grid.addEventListener("click", (event) => {
       firstCard = null;
       secondCard = null;
       score.textContent++; // increase score
-    }
-    // after 3s remove the flipped class
+    }else{
+      // after 3s remove the flipped class
     setTimeout(() => {
       firstCard.classList.remove("flipped");
       secondCard.classList.remove("flipped");
@@ -105,6 +105,8 @@ grid.addEventListener("click", (event) => {
       firstCard = null;
       secondCard = null;
     }, 1000);
+    }
+    
   }
 });
 
