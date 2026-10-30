@@ -1,15 +1,15 @@
-const grid = document.getElementById("grid");
+const grid = document.getElementById("grid"); // game grid
 
 const startOverlay = document.getElementById("startOverlay");
 const startButton = document.getElementById("startButton");
 
-const usernameInput = document.getElementById("usernameInput");
-const usernameError = document.getElementById("usernameError");
+const usernameInput = document.getElementById("usernameInput"); // username input
+const usernameError = document.getElementById("usernameError"); // error
 const playerName = document.getElementById("playerName");
 const endOverlay = document.getElementById("endOverlay");
 
-let username = "";
-let gameFinished = false;
+let username = ""; // variable for the username
+let gameFinished = false; // game state
 
 // variables score and moves
 let score = document.getElementById("score");

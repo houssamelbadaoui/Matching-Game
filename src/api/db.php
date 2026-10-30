@@ -2,7 +2,9 @@
 require '/var/www/vendor/autoload.php';
 
 function scoresCollection() {
-    $uri = getenv('MONGO_URI') ?: 'mongodb://mongo:27017';
-    $client = new MongoDB\Client($uri);
-    return $client->memorygame->scores;
+    $uri =  'mongodb://mongo:27017'; // url to db
+    $client = new MongoDB\Client($uri); // connect to mongo
+    return $client->memorygame->scores; // databse memorygame - collection scores
 }
+
+?>

@@ -6,6 +6,7 @@ function formatTime(totalSeconds) {
   return `${m}:${s}`;
 }
 
+// fucntion to get top 5 players
 async function loadRanking() {
   try {
     const response = await fetch("api/scores.php");
@@ -13,6 +14,7 @@ async function loadRanking() {
 
     rankingBody.innerHTML = "";
 
+    // if player list empty
     if (players.length === 0) {
       rankingBody.innerHTML =
         '<tr><td colspan="5">No players yet. Be the first!</td></tr>';

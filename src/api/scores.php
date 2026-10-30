@@ -1,35 +1,44 @@
 <?php
-require __DIR__ . '/db.php';
+require 'db.php';
 header('Content-Type: application/json');
 
-$scores = scoresCollection();
+$scores = scoresCollection(); // get scores from mongo
 
-// ---- GET: return top 5 ----
+//  GET request: return top 5
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $cursor = $scores->find([], [
+    $result = $scores->find([], [
         'sort'       => ['total' => -1, 'time' => 1],
         'limit'      => 5,
-        'projection' => ['_id' => 0],
     ]);
-    echo json_encode(iterator_to_array($cursor, false));
+
+    $players = [];
+    foreach($result as $row){
+        $players[] = [
+            "username" => $row["username"],
+            "total" => $row["total"],
+            "moves" => $row["moves"],
+            "time" => $row["time"],
+        ];
+    }
+    echo json_encode($players);
     exit;
 }
 
-// ---- POST: save a score ----
+// POST request: save a score
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data     = json_decode(file_get_contents('php://input'), true) ?? [];
-    $username = trim((string)($data['username'] ?? ''));
-    $score    = (int)($data['score'] ?? 0);
-    $moves    = (int)($data['moves'] ?? 0);
-    $time     = (int)($data['time'] ?? 0);
+    $data     = json_decode(file_get_contents('php://input'), true);
+    $username = trim((string)($data['username']));
+    $score    = (int)($data['score']);
+    $moves    = (int)($data['moves']);
+    $time     = (int)($data['time']);
 
-    if ($username === '' || mb_strlen($username) > 20) {
-        http_response_code(400);
-        echo json_encode(['error' => 'Invalid username']);
+    // if user doesn´t input the username
+    if ($username === '') {
+        echo json_encode(['error' => 'no username']); // return error
         exit;
     }
 
-    // total score is calculated here, not in the browser
+    // calculate total score
     $total = max(0, $score * 100 - $moves * 10);
 
     $scores->insertOne([
@@ -45,4 +54,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-http_response_code(405);
